@@ -1,0 +1,127 @@
+/* App.css */
+
+/* Apply background image to the entire body */
+body {
+  background-image: url('https://slidescorner.com/wp-content/uploads/2023/03/01-Baby-Blue-Pastel-Plain-Background-Wallpaper-by-SlidesCorner.com_-1-1024x576.jpg.webp');
+  background-size: cover; 
+  background-repeat: no-repeat; 
+  background-attachment: fixed; 
+  font-family: Arial, sans-serif; 
+  color: black;
+}
+
+.container {
+  padding: 20px;
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.control {
+  display: flex;
+  flex-direction: column;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #000000;
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #f4f4f4;
+}
+
+/* Image */
+.image-container {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  width: 50px;
+  height: 50px;
+}
+
+.transaction-image {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.image-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.expanded-image {
+  max-width: 50%;
+  max-height: 50%;
+  object-fit: contain;
+}
+
+.image-container:hover .transaction-image {
+  transform: scale(1.2);
+}
+
+.image-container:hover .image-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border: 2px solid black;
+}
+
+/* Statistics */
+.statistics {
+  margin-top: 20px;
+  margin-left: 100px;
+}
+
+/* Charts */
+.chart-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.clear-button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
