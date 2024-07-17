@@ -9,6 +9,7 @@ const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
 
 const App = () => {
   const [transactions, setTransactions] = useState([]);
+  const [filteredTransactions, setFilteredTransactions] = useState([]);
   const [statistics, setStatistics] = useState({});
   const [barChartData, setBarChartData] = useState({
     labels: [],
@@ -35,19 +36,19 @@ const App = () => {
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [hoveredImage, setHoveredImage] = useState(null); // State to track hovered image URL
-  const [showEnlargedImage, setShowEnlargedImage] = useState(false); // State to manage enlarged image overlay
+  const [hoveredImage, setHoveredImage] = useState(null);
+  const [showEnlargedImage, setShowEnlargedImage] = useState(false);
 
   const fetchTransactions = async () => {
     try {
       const response = await axios.get('http://localhost:3000/transactions', {
         params: {
           month,
-          search,
           page,
         }
       });
       setTransactions(response.data.transactions);
+      setFilteredTransactions(response.data.transactions);
       setTotalPages(response.data.totalPages);
     } catch (error) {
       console.error('Error fetching transactions:', error);
@@ -123,7 +124,16 @@ const App = () => {
     fetchStatistics();
     fetchBarChartData();
     fetchPieChartData(); 
-  }, [month, search, page]);
+  }, [month, page]);
+
+  useEffect(() => {
+    const filtered = transactions.filter(transaction =>
+      transaction.title.toLowerCase().includes(search.toLowerCase()) ||
+      transaction.description.toLowerCase().includes(search.toLowerCase()) ||
+      transaction.price.toString().includes(search)
+    );
+    setFilteredTransactions(filtered);
+  }, [search, transactions]);
 
   const handleMouseEnter = (imageUrl) => {
     setHoveredImage(imageUrl);
@@ -171,7 +181,7 @@ const App = () => {
             </tr>
           </thead>
           <tbody>
-            {transactions.map(transaction => (
+            {filteredTransactions.map(transaction => (
               <tr key={transaction.id}>
                 <td>{transaction.id}</td>
                 <td>{transaction.title}</td>
